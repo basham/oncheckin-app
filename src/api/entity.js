@@ -23,32 +23,49 @@ export async function loadStore(id = createId()) {
 
 	function getEntity(...idParts) {
 		const id = getId(idParts);
-		const _entity = data.get(id);
+		const entity = data.get(id);
+		return loadEntity(id, entity);
+	}
 
-		if (!_entity) {
+	function getEntities() {
+		return [...data.entries()]
+			.map(([id, value]) => loadEntity(id, value))
+			.filter((entity) => entity);
+	}
+
+	function loadEntity(id, value) {
+		if (!value) {
 			return;
 		}
 
 		function _delete(component) {
 			validateComponent(component);
-			_entity.delete(component.id);
+			value.delete(component.id);
 		}
 
 		function get(component) {
 			validateComponent(component);
-			return _entity.get(component.id);
+			return value.get(component.id);
 		}
 
 		function set(component, value) {
 			validateComponent(component);
 			const _value = component.schema.parse(value);
-			_entity.set(component.id, _value);
+			value.set(component.id, _value);
 		}
 
-		return { delete: _delete, get, id, set, value: _entity };
+		return { delete: _delete, get, id, set, value };
 	}
 
-	return { ...store, data, id, createEntity, deleteEntity, getEntity };
+	return {
+		...store,
+		data,
+		id,
+		createEntity,
+		deleteEntity,
+		getEntity,
+		getEntities
+	};
 }
 
 function getId(idParts) {
