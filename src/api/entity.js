@@ -1,17 +1,19 @@
 import { getOrCreate } from '@src/util.js';
 import { isComponent, isIdValid } from './components.js';
-import { createYMap, createRemoteStore } from './store.js';
+import { createId, createYMap, createRemoteStore } from './store.js';
 
+const DOC_ROOT = 'data';
 const ID_DELIMITER = '|';
 
 export async function loadStore(id = createId()) {
 	const store = await createRemoteStore(id);
-	const data = store.doc.getMap('data');
+	const data = store.doc.getMap(DOC_ROOT);
 
 	function createEntity(...idParts) {
-		const id = getId(idParts);
+		const parts = idParts.length ? idParts : [createId()];
+		const id = getId(parts);
 		getOrCreate(data, id, createYMap);
-		return entity(...idParts);
+		return getEntity(...parts);
 	}
 
 	function deleteEntity(...idParts) {
@@ -49,7 +51,10 @@ export async function loadStore(id = createId()) {
 	return { ...store, data, id, createEntity, deleteEntity, getEntity };
 }
 
-function getId(idParts = [createId()]) {
+function getId(idParts) {
+	if (!Array.isArray(idParts)) {
+		throw new Error('Id parameter must be an array')
+	}
 	const parts = idParts.map((value) => value?.id || value)
 	if (!parts.every(isIdValid)) {
 		throw new Error('Invalid id');
