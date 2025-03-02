@@ -6,9 +6,26 @@ const DEFAULT_NAME = '(Event)';
 const INVALID_DATE = new Date(NaN);
 const PATH = 'events';
 
-export function getEvents(store, { org }) {
+export function getEventData(store, orgData) {
+	const events = getEvents(store, orgData);
+	const eventsById = getEventsById(events);
+	const pastEvents = getPastEvents(events);
+	const upcomingEvents = getUpcomingEvents(events);
+	const eventsByYear = getEventsByYear(events);
+	const eventYears = getEventYears(eventsByYear);
+	return {
+		events,
+		eventsById,
+		pastEvents,
+		upcomingEvents,
+		eventsByYear,
+		eventYears
+	};
+}
+
+function getEvents(store, orgData) {
 	const events = store.getEntities()
-		.map((entity) => getEvent(entity, org))
+		.map((entity) => getEvent(entity, orgData))
 		.filter((event) => event)
 	const eventCount = getEventCount(store, events);
 	return events
@@ -19,7 +36,7 @@ export function getEvents(store, { org }) {
 		});
 }
 
-function getEvent(entity, org) {
+function getEvent(entity, orgData) {
 	const event = entity.get(components.event);
 	if (!event) {
 		return;
@@ -35,7 +52,7 @@ function getEvent(entity, org) {
 	const displayDateLong = format(dateObj, 'E, PP');
 	const year = format(dateObj, 'y');
 	const name = event.name.trim() || DEFAULT_NAME;
-	const url = `${org.url}${PATH}/${id}/`;
+	const url = `${orgData.org.url}${PATH}/${id}/`;
 	return {
 		id,
 		date,
@@ -62,22 +79,22 @@ function getEventCount(store, events) {
 	return count.value + countAfter;
 }
 
-export function getEventsById(events) {
+function getEventsById(events) {
 	const entries = events.map((e) => [e.id, e]);
 	return new Map(entries);
 }
 
-export function getPastEvents(events) {
+function getPastEvents(events) {
 	return events.filter(({ dateObj }) => !isToday(dateObj) && isPast(dateObj));
 }
 
-export function getUpcomingEvents(events) {
+function getUpcomingEvents(events) {
 	return events
 		.filter(({ dateObj }) => isToday(dateObj) || isFuture(dateObj))
 		.reverse();
 }
 
-export function getEventsByYear(events) {
+function getEventsByYear(events) {
 	return events.reduce((map, event) => {
 		const { year } = event;
 		const yearEvents = getOrCreate(map, year, () => []);
@@ -86,6 +103,6 @@ export function getEventsByYear(events) {
 	}, new Map());
 }
 
-export function getEventYears(eventsByYear) {
+function getEventYears(eventsByYear) {
 	return [...eventsByYear.keys()].sort().reverse();
 }

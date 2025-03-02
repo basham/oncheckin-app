@@ -3,7 +3,16 @@ import { components } from '../components.js';
 const DEFAULT_NAME = '(Organization)';
 const PATH = 'orgs';
 
-export function getOrg(store) {
+export function getOrgData(store) {
+	const org = getOrg(store);
+	const orgEvent = getOrgEvent(store);
+	return {
+		org,
+		orgEvent
+	};
+}
+
+function getOrg(store) {
 	const { id } = store;
 	const entity = store.getEntity(components.org);
 	const { name = DEFAULT_NAME } = entity.get(components.org) || {};
@@ -21,6 +30,6 @@ export function getOrg(store) {
 	};
 }
 
-export function getOrgEvent(store) {
+function getOrgEvent(store) {
 	return store.getEntity(components.org, components.event);
 }
