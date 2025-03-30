@@ -1,5 +1,6 @@
 import { getOrCreate } from '@src/util.js';
 import { loadStore } from '../entity.js';
+import { getCheckInData } from './check-in.js';
 import { getEventData } from './event.js';
 import { getOrgData } from './org.js';
 import { getParticipantData } from './participant.js';
@@ -19,9 +20,11 @@ async function compute(orgId) {
 	const orgData = getOrgData(store);
 	const eventData = getEventData(store, orgData);
 	const participantData = getParticipantData(store, orgData);
+	const checkInData = getCheckInData(store, eventData, participantData);
 	return {
 		...orgData,
 		...eventData,
-		...participantData
+		...participantData,
+		...checkInData
 	};
 }

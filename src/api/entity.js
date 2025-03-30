@@ -21,6 +21,10 @@ export async function loadStore(id = createId()) {
 		data.delete(id);
 	}
 
+	function encodeId(...idParts) {
+		return getId(idParts);
+	}
+
 	function getEntity(...idParts) {
 		const id = getId(idParts);
 		const entity = data.get(id);
@@ -48,13 +52,18 @@ export async function loadStore(id = createId()) {
 			return value.get(component.id);
 		}
 
+		function has(component) {
+			validateComponent(component);
+			return value.has(component.id);
+		}
+
 		function set(component, value) {
 			validateComponent(component);
 			const _value = component.schema.parse(value);
 			value.set(component.id, _value);
 		}
 
-		return { delete: _delete, get, id, set, value };
+		return { delete: _delete, get, has, id, set, value };
 	}
 
 	return {
@@ -63,8 +72,9 @@ export async function loadStore(id = createId()) {
 		id,
 		createEntity,
 		deleteEntity,
+		encodeId,
 		getEntity,
-		getEntities
+		getEntities,
 	};
 }
 
