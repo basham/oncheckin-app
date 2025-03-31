@@ -71,7 +71,7 @@
 	--color-primary-95: oklch(95% var(--chroma-95) var(--hue));
 	--color-primary-100: oklch(100% var(--chroma-100) var(--hue));
 
-	--chroma-base: 0.5;
+	--chroma-base: 0.25;
 	--color-base-0: oklch(0% calc(var(--chroma-0) * var(--chroma-base)) var(--hue));
 	--color-base-5: oklch(5% calc(var(--chroma-5) * var(--chroma-base)) var(--hue));
 	--color-base-10: oklch(10% calc(var(--chroma-10) * var(--chroma-base)) var(--hue));
