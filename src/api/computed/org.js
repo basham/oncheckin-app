@@ -31,5 +31,5 @@ function getOrg(store) {
 }
 
 function getOrgEvent(store) {
-	return store.getEntity(components.org, components.event);
+	return store.getEntity(components.org, components.event)?.value;
 }

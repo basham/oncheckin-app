@@ -57,10 +57,10 @@ export async function loadStore(id = createId()) {
 			return value.has(component.id);
 		}
 
-		function set(component, value) {
+		function set(component, componentValue) {
 			validateComponent(component);
-			const _value = component.schema.parse(value);
-			value.set(component.id, _value);
+			const _componentValue = component.schema.parse(componentValue);
+			value.set(component.id, _componentValue);
 		}
 
 		return { delete: _delete, get, has, id, set, value };

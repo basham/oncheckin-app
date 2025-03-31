@@ -47,7 +47,7 @@ function getCheckInIndexes(store) {
 	for (const entity of store.getEntities()) {
 		if (entity.has(components.rel) && entity.has(components.attends)) {
 			const { source: pid, target: eid } = entity.get(components.rel);
-			byCheckInId.set(id, entity);
+			byCheckInId.set(entity.id, entity);
 			getOrCreate(byEventId, eid, () => new Set()).add(pid);
 			getOrCreate(byParticipantId, pid, () => new Set()).add(eid);
 		}

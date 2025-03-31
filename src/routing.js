@@ -5,7 +5,7 @@ import {
 	getDevice,
 	hasOrg
 } from './api.js';
-import { computeOrg } from '@src/api/org-signal.js';
+import { Store } from '@src/api/computed/store.js';
 import { APP_NAME } from './constants.js';
 
 export function registerRoute(path, methods) {
@@ -81,13 +81,13 @@ async function getParams(source = {}) {
 async function getOrgFromParams(key, { org: oid }) {
 	const accountId = await getCurrentAccountId();
 	if (await hasOrg(accountId, oid)) {
-		const { org } = await computeOrg(oid);
+		const { org } = await Store(oid);
 		return [key, org];
 	}
 }
 
 async function getEventFromParams(key, { org: oid, event: eid }) {
-	const { eventsById } = await computeOrg(oid);
+	const { eventsById } = await Store(oid);
 	if (eventsById.has(eid)) {
 		const event = eventsById.get(eid);
 		return [key, event];
@@ -95,7 +95,7 @@ async function getEventFromParams(key, { org: oid, event: eid }) {
 }
 
 async function getParticipantFromParams(key, { org: oid, participant: pid }) {
-	const { participantsById } = await computeOrg(oid);
+	const { participantsById } = await Store(oid);
 	if (participantsById.has(pid)) {
 		const participant = participantsById.get(pid);
 		return [key, participant];

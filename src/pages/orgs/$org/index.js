@@ -1,4 +1,4 @@
-import { computeOrg } from '@src/api/org-signal.js';
+import { Store } from '@src/api/computed/store.js';
 
 export async function get({ data }) {
 	const { org } = data;
@@ -8,7 +8,7 @@ export async function get({ data }) {
 		upcomingEvents,
 		pastEvents,
 		eventYears: years,
-	} = await computeOrg(org.id);
+	} = await Store(org.id);
 	const recentEvents = pastEvents.slice(0, 5);
 	const template = { route, h1, upcomingEvents, recentEvents, years };
 	return { template };

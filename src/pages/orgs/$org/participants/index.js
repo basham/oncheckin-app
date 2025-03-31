@@ -1,4 +1,4 @@
-import { computeOrg } from '@src/api/org-signal.js';
+import { Store } from '@src/api/computed/store.js';
 
 const namedValues = 'all|true|false|ready'.split('|');
 const sortValues = 'event|runs|hosts|name'.split('|');
@@ -13,7 +13,7 @@ export async function get({ data }) {
 	const {
 		participants: allParticipants,
 		checkInsByParticipantId
-	} = await computeOrg(org.id);
+	} = await Store(org.id);
 
 	const participants = allParticipants
 		.map((p) => {

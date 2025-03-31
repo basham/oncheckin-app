@@ -1,10 +1,10 @@
-import { computeOrg } from '@src/api/org-signal.js';
+import { Store } from '@src/api/computed/store.js';
 import { getOrCreate, sortAsc } from '@src/util.js';
 
 export async function get({ data }) {
 	const { org, year } = data;
 	const h1 = `Events in ${year}`;
-	const { checkInsByEventId, eventsByYear } = await computeOrg(org.id);
+	const { checkInsByEventId, eventsByYear } = await Store(org.id);
 	const events = eventsByYear.get(year);
 	const eventsByParticipantCount = events.reduce((map, event) => {
 		const c = checkInsByEventId.get(event.id).length;

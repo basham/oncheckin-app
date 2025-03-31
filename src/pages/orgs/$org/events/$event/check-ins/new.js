@@ -2,7 +2,7 @@ import {
 	createCheckIn,
 	createParticipant
 } from '@src/api.js';
-import { computeOrg } from '@src/api/org-signal.js';
+import { Store } from '@src/api/computed/store.js';
 
 export async function get({ data }) {
 	const { org, event } = data;
@@ -12,7 +12,7 @@ export async function get({ data }) {
 		participants: allParticipants,
 		checkInsByEventId,
 		checkInsByParticipantId
-	} = await computeOrg(org.id);
+	} = await Store(org.id);
 	const checkIns = checkInsByEventId.get(event.id).map((checkIn) => [
 		checkIn.participant.id,
 		checkIn,
