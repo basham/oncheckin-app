@@ -4,12 +4,18 @@ const DEFAULT_NAME = '(Organization)';
 const PATH = 'orgs';
 
 export function getOrgData(store) {
+	const json = getJSON(store);
 	const org = getOrg(store);
 	const orgEvent = getOrgEvent(store);
 	return {
+		json,
 		org,
 		orgEvent
 	};
+}
+
+function getJSON(store) {
+	return store.data.toJSON();
 }
 
 function getOrg(store) {

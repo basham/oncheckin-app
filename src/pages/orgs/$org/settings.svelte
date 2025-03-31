@@ -20,6 +20,7 @@
 		</p>
 		<ul class="list-plain list-plain--inline u-gap-4 u-m-top-4">
 			<li><a href={`${org.url}share/`}>Share</a></li>
+			<li><a href={`/api/orgs/${org.id}.json`}>Download</a></li>
 			<li><a href={`${org.url}rename/`}>Rename</a></li>
 			<li><a href={`${org.url}delete/`}>Delete</a></li>
 		</ul>

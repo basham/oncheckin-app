@@ -33,12 +33,15 @@ function registerRouteMethod(path, handler, method) {
 			const searchParams = Object.fromEntries(options.url.searchParams);
 			const route = path.replace(/^\//, '').replace(/\/index$/, '');
 			const data = { ...searchParams, route, ...params };
-			const { html, json, template, redirect } = await handler({
+			const { download, html, json, template, redirect } = await handler({
 				...options,
 				data,
 			});
 			if (html) {
 				return respondWithHTML(html);
+			}
+			if (json && download) {
+				return respondWithDownloadJSON(json);
 			}
 			if (json) {
 				return respondWithJSON(json);
@@ -102,10 +105,11 @@ async function getParticipantFromParams(key, { org: oid, participant: pid }) {
 	}
 }
 
-function createResponse(body, contentType) {
+function createResponse(body, contentType, headers = {}) {
 	const options = {
 		headers: {
 			'Content-Type': contentType,
+			...headers
 		},
 	};
 	return new Response(body, options);
@@ -132,6 +136,14 @@ function respondWithHTML(body) {
 function respondWithJSON(data) {
 	const body = JSON.stringify(data);
 	return createResponse(body, 'application/json');
+}
+
+function respondWithDownloadJSON(data) {
+	const body = JSON.stringify(data);
+	const headers = {
+		'Content-Disposition': 'attachment'
+	};
+	return createResponse(body, 'application/json', headers);
 }
 
 function respondWithTemplate(data) {
