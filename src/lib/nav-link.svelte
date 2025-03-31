@@ -13,7 +13,7 @@
 
 <style>
 	a {
-		color: var(--color-p-8);
+		color: var(--color-b-8);
 		font-weight: bold;
 		line-height: 1;
 		padding: var(--size-2) 0;

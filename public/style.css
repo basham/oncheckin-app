@@ -100,11 +100,13 @@
 	--color-p-8: var(--color-primary-85);
 	--color-p-9: var(--color-primary-95);
 
-	--color-b-1: var(--color-base-10);
+	--color-b-1: var(--color-base-15);
 	--color-b-2: var(--color-base-20);
 	--color-b-3: var(--color-base-30);
 	--color-b-4: var(--color-base-40);
+	--color-b-7: var(--color-base-70);
 	--color-b-8: var(--color-base-80);
+	--color-b-9: var(--color-base-95);
 
 	--color-black: black;
 	--color-green: limegreen;
@@ -159,7 +161,7 @@
 
 html {
 	background-color: var(--color-b-2);
-	color: var(--color-p-9);
+	color: var(--color-b-9);
 	-webkit-text-size-adjust: 100%;
 }
 
@@ -226,7 +228,7 @@ p {
 	background-color: var(--color-b-3);
 	border: none;
 	border-radius: var(--size-1);
-	color: var(--color-p-7);
+	color: var(--color-b-8);
 	cursor: pointer;
 	display: inline-flex;
 	flex-shrink: 0;
@@ -238,31 +240,31 @@ p {
 }
 
 .button:hover {
-	background-color: var(--color-p-3);
-	color: var(--color-p-8);
+	background-color: var(--color-b-4);
+	color: var(--color-b-8);
 }
 
 .button--plain {
 	background-color: transparent;
 	border-radius: 0;
-	color: var(--color-p-7);
+	color: var(--color-b-7);
 	line-height: var(--lh-1);
 	padding: 0;
 }
 
 .button--plain:hover {
 	background-color: transparent;
-	color: var(--color-p-8);
+	color: var(--color-b-8);
 }
 
 .button--primary {
 	background-color: var(--color-p-7);
-	color: var(--color-p-0);
+	color: var(--color-b-1);
 }
 
 .button--primary:hover {
 	background-color: var(--color-p-8);
-	color: var(--color-p-0);
+	color: var(--color-b-1);
 }
 
 .button:disabled {
@@ -335,15 +337,27 @@ p {
 	flex-wrap: wrap;
 }
 
-.row {
-	background-color: var(--color-b-3);
+.list-plain--inline .row__left {
 	border-radius: var(--size-1);
+}
+
+.row {
 	display: flex;
+}
+
+.row:first-child .row__left {
+	border-top-left-radius: var(--size-1);
+	border-top-right-radius: var(--size-1);
+}
+
+.row:last-child .row__left {
+	border-bottom-left-radius: var(--size-1);
+	border-bottom-right-radius: var(--size-1);
 }
 
 .row__left {
 	align-items: center;
-	border-radius: var(--size-1);
+	background-color: var(--color-b-3);
 	display: grid;
 	flex-grow: 1;
 	grid-template:
@@ -360,7 +374,7 @@ p {
 }
 
 .row__left:hover {
-	background-color: var(--color-p-3);
+	background-color: var(--color-b-4);
 }
 
 .row__left:focus {
@@ -376,24 +390,24 @@ p {
 }
 
 .row__left[aria-current]:hover {
-	background-color: var(--color-p-8);
+	background-color: var(--color-b-8);
 }
 
 .row__primary {
-	color: var(--color-p-9);
+	color: var(--color-b-9);
 	display: block;
 	font-size: var(--fs-2);
 	grid-area: primary;
 }
 
 .row__secondary {
-	color: var(--color-p-8);
+	color: var(--color-b-8);
 	grid-area: secondary;
 	line-height: var(--lh-1);
 }
 
 .row__tertiary {
-	color: var(--color-p-8);
+	color: var(--color-b-8);
 	grid-area: tertiary;
 	padding-left: var(--size-2);
 }
