@@ -13,7 +13,7 @@
 	<ul class="list-plain u-gap-2px">
 		{#each checkIns as checkIn}
 			<li class="row">
-				<a class="row__left" href={checkIn.url}>
+				<a class="row__content" href={checkIn.url}>
 					<span class="row__primary">{checkIn.participant.displayName}</span>
 					<span class="row__secondary">{checkIn.participant.fullName}</span>
 					<span class="row__tertiary u-right u-text-num">

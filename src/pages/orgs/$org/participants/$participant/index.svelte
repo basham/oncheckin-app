@@ -16,7 +16,7 @@
 		<ul class="list-plain u-gap-2px u-m-top-2">
 			{#each checkIns as checkIn}
 				<li class="row">
-					<a class="row__left" href={checkIn.event.url}>
+					<a class="row__content" href={checkIn.event.url}>
 						<span class="row__primary">{checkIn.event.name}</span>
 						<span class="row__secondary u-text-num">
 							{`#${checkIn.event.count}: ${checkIn.event.displayDateMedium}`}

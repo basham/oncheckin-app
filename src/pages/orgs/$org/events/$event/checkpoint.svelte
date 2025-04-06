@@ -38,14 +38,14 @@
 			{#each waiting as checkIn}
 				<li class="row">
 					<a
-						class="row__left"
+						class="row__content"
 						href={checkIn.participant.url}
 						id={checkIn.participant.id}
 					>
 						<span class="row__primary">{checkIn.participant.displayName}</span>
 						<span class="row__secondary">{checkIn.participant.fullName}</span>
 					</a>
-					<span class="row__right">
+					<span class="row__actions">
 						<button
 							aria-describedby={checkIn.participant.id}
 							class="button button--primary"
@@ -74,14 +74,14 @@
 			{#each arrived as checkIn}
 				<li class="row">
 					<a
-						class="row__left"
+						class="row__content"
 						href={checkIn.participant.url}
 						id={checkIn.participant.id}
 					>
 						<span class="row__primary">{checkIn.participant.displayName}</span>
 						<span class="row__secondary">{checkIn.participant.fullName}</span>
 					</a>
-					<span class="row__right">
+					<span class="row__actions">
 						<button
 							aria-describedby={checkIn.participant.id}
 							class="button"

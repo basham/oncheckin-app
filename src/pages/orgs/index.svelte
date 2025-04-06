@@ -13,7 +13,7 @@
 		<ul class="list-plain u-gap-2px u-m-top-2">
 			{#each orgs as org}
 				<li class="row">
-					<a class="row__left" href={org.url}>
+					<a class="row__content" href={org.url}>
 						<span class="row__primary">{org.name}</span>
 						<span class="row__secondary">{`ID: ${org.id}`}</span>
 					</a>

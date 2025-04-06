@@ -23,7 +23,7 @@
 	<ul class="list-plain list-plain--inline u-gap-2px u-m-top-2">
 		{#each years as year}
 			<li class="row">
-				<a class="row__left u-text-num" href={`${org.url}events/year/${year}/`}>
+				<a class="row__content u-text-num" href={`${org.url}events/year/${year}/`}>
 					<span class="row__primary">{year}</span>
 				</a>
 			</li>

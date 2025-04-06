@@ -147,7 +147,7 @@
 			<li class="row">
 				<a
 					aria-current={filter.active ? 'true' : null}
-					class="row__left"
+					class="row__content"
 					href={`${filter.url}`}
 				>
 					<span class="row__primary u-flex u-flex-center u-gap-2">
@@ -166,11 +166,13 @@
 		<h3 class="h2">
 			{group.name}
 			{#if group.description}
-				{#if group.url}
-					<a class="badge" href={group.url}>{group.description}</a>
-				{:else}
-					<span class="badge">{group.description}</span>
-				{/if}
+				<span class="badge">
+					{#if group.url}
+						<a href={group.url}>{group.description}</a>
+					{:else}
+						{group.description}
+					{/if}
+				</span>
 			{/if}
 		</h3>
 		<Participants participants={group.items} />
