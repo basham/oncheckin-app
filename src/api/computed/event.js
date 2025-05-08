@@ -6,14 +6,15 @@ const DEFAULT_NAME = '(Event)';
 const INVALID_DATE = new Date(NaN);
 const PATH = 'events';
 
-export function getEventData(store, orgData) {
-	const events = getEvents(store, orgData);
+export function getEventData(source) {
+	const events = getEvents(source);
 	const eventsById = getEventsById(events);
 	const pastEvents = getPastEvents(events);
 	const upcomingEvents = getUpcomingEvents(events);
 	const eventsByYear = getEventsByYear(events);
 	const eventYears = getEventYears(eventsByYear);
 	return {
+		...source,
 		events,
 		eventsById,
 		pastEvents,
@@ -23,9 +24,10 @@ export function getEventData(store, orgData) {
 	};
 }
 
-function getEvents(store, orgData) {
+function getEvents(source) {
+	const { store } = source;
 	const events = store.getEntities()
-		.map((entity) => getEvent(entity, orgData))
+		.map((entity) => getEvent(entity, source))
 		.filter((event) => event)
 	const eventCount = getEventCount(store, events);
 	return events
@@ -36,7 +38,8 @@ function getEvents(store, orgData) {
 		});
 }
 
-function getEvent(entity, orgData) {
+function getEvent(entity, source) {
+	const { org } = source;
 	const event = entity.get(components.event);
 	if (!event) {
 		return;
@@ -52,7 +55,7 @@ function getEvent(entity, orgData) {
 	const displayDateLong = format(dateObj, 'E, PP');
 	const year = format(dateObj, 'y');
 	const name = event.name.trim() || DEFAULT_NAME;
-	const url = `${orgData.org.url}${PATH}/${id}/`;
+	const url = `${org.url}${PATH}/${id}/`;
 	return {
 		id,
 		date,

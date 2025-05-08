@@ -6,9 +6,8 @@ const INVALID_DATE = new Date(NaN);
 const READY_FOR_NAME_COUNT = 6;
 const RETURNERS_TIME_PERIOD = { months: 2 };
 
-export function getCheckInData(store, eventData, participantData) {
-	const { eventsById } = eventData;
-	const { participants } = participantData;
+export function getCheckInData(source) {
+	const { store, eventsById, participants } = source;
 	const indexes = getCheckInIndexes(store);
 
 	const aEntries = participants
@@ -33,6 +32,7 @@ export function getCheckInData(store, eventData, participantData) {
 	const checkInsByEventId = new Map(cEntries);
 
 	return {
+		...source,
 		checkInsById,
 		checkInsByEventId,
 		checkInsByParticipantId

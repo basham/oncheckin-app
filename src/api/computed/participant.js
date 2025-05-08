@@ -3,23 +3,26 @@ import { components } from '../components.js';
 
 const DEFAULT_NAME = '(Participant)';
 
-export function getParticipantData(store, orgData) {
-	const participants = getParticipants(store, orgData);
+export function getParticipantData(source) {
+	const participants = getParticipants(source);
 	const participantsById = getParticipantsById(participants);
 	return {
+		...source,
 		participants,
 		participantsById
 	};
 }
 
-function getParticipants(store, orgData) {
+function getParticipants(source) {
+	const { store } = source;
 	return store.getEntities()
-		.map((entity) => getParticipant(store, entity, orgData))
+		.map((entity) => getParticipant(entity, source))
 		.filter((participant) => participant)
 		.sort(sortAsc('displayName'));
 }
 
-function getParticipant(store, entity, orgData) {
+function getParticipant(entity, source) {
+	const { store, org } = source;
 	const person = entity.get(components.person);
 	if (!person) {
 		return;
@@ -30,7 +33,7 @@ function getParticipant(store, entity, orgData) {
 	const { name: alias = '' } = member;
 	const fullName = person.name || DEFAULT_NAME;
 	const displayName = alias || `Just ${fullName}`;
-	const url = `${orgData.org.url}participants/${id}/`;
+	const url = `${org.url}participants/${id}/`;
 	const attendsCount = store.getEntity(id, components.attends)?.get(components.count);
 	const organizesCount = store.getEntity(id, components.organizes)?.get(components.count);
 	return {

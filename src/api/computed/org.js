@@ -3,11 +3,13 @@ import { components } from '../components.js';
 const DEFAULT_NAME = '(Organization)';
 const PATH = 'orgs';
 
-export function getOrgData(store) {
+export function getOrgData(source) {
+	const { store } = source;
 	const json = getJSON(store);
 	const org = getOrg(store);
 	const orgEvent = getOrgEvent(store);
 	return {
+		...source,
 		json,
 		org,
 		orgEvent

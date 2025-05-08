@@ -25,11 +25,15 @@ export function getOrCreate(cache, key, createCallback) {
 	return cache.get(key);
 }
 
+export function pipe(...fns) {
+	return (x) => fns.reduce((v, f) => f(v), x);
+}
+
 export function pluralize(count, singular, plural = `${singular}s`) {
 	return count === 1 ? singular : plural;
 }
 
-export function setMapFromObject (map, object) {
+export function setMapFromObject(map, object) {
 	for (const [key, value] of Object.entries(object)) {
 		map.set(key, value);
 	}
@@ -62,7 +66,7 @@ export function todayDate() {
 	return now.toJSON().split('T')[0];
 }
 
-export function waitForElement(id, callback = () => {}, retry = 180) {
+export function waitForElement(id, callback = () => { }, retry = 180) {
 	const el = document.getElementById(id);
 	if (el) {
 		return callback(el);
