@@ -24,7 +24,7 @@
 		"@sveltejs/vite-plugin-svelte": "5.0.3",
 		"prettier": "3.5.3",
 		"prettier-plugin-svelte": "3.3.3",
-		"vite": "6.2.5",
+		"vite": "6.3.5",
 		"vite-plugin-pwa": "1.0.0",
 		"workbox-build": "7.3.0",
 		"workbox-precaching": "7.3.0",
@@ -37,11 +37,11 @@
 		"hermetrics": "1.0.0",
 		"qr-scanner": "1.4.2",
 		"qrious": "4.0.2",
-		"svelte": "5.25.7",
+		"svelte": "5.28.2",
 		"y-indexeddb": "9.0.12",
 		"y-websocket": "3.0.0",
-		"yjs": "13.6.24",
-		"zod": "3.24.2"
+		"yjs": "13.6.26",
+		"zod": "3.24.4"
 	},
 	"engine": {
 		"node": "22.x"
