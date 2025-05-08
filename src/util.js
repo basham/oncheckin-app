@@ -25,8 +25,8 @@ export function getOrCreate(cache, key, createCallback) {
 	return cache.get(key);
 }
 
-export function pipe(...fns) {
-	return (x) => fns.reduce((v, f) => f(v), x);
+export function pipe(value, ...fns) {
+	return fns.reduce((v, f) => f(v), value);
 }
 
 export function pluralize(count, singular, plural = `${singular}s`) {

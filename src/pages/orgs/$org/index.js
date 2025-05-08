@@ -8,8 +8,9 @@ export async function get({ data }) {
 		upcomingEvents,
 		pastEvents,
 		eventYears: years,
+		participation
 	} = await Store(org.id);
 	const recentEvents = pastEvents.slice(0, 5);
-	const template = { route, h1, upcomingEvents, recentEvents, years };
+	const template = { route, h1, upcomingEvents, recentEvents, years, participation };
 	return { template };
 }

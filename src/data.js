@@ -27,6 +27,7 @@ export const {
 	participants,
 	participantsWithMostAttendances,
 	participantsWithMostOrganizes,
+	participation,
 	recentEvents,
 	returnersCutoff,
 	runners,
