@@ -31,6 +31,7 @@ export function getParticipationData(source) {
 	const attendsMany = participantCount - attendsOne;
 	const organizesMax = Math.max(...participationValues.map((v) => v[ORGANIZES_INDEX]));
 	const organizesSome = participantCount - organizesZero;
+	const attendsManyOrganizesZero = participationValues.filter((v) => v[ATTENDS_INDEX] > 1 && v[ORGANIZES_INDEX] === 0).length;
 	const attendsIQR = interquartileRange(participationByType[ATTENDS_INDEX].filter(v => v > 1));
 	const organizesIQR = interquartileRange(participationByType[ORGANIZES_INDEX].filter(v => v > 0));
 	const participation = {
@@ -38,6 +39,7 @@ export function getParticipationData(source) {
 		attendsOne,
 		attendsMany,
 		attendsMax,
+		attendsManyOrganizesZero,
 		organizesZero,
 		organizesSome,
 		organizesMax,
