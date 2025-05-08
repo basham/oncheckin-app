@@ -62,6 +62,6 @@ export function isComponent(value) {
 	return components[value?.id] === value;
 }
 
-export function isTag (item) {
+export function isTag(item) {
 	return item?.type === TAG;
 }
