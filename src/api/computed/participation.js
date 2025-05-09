@@ -1,12 +1,14 @@
+import { isAfter, subYears } from 'date-fns';
 import { getOrCreate } from '@src/util.js';
 
-const PERIOD = 36;
 const ATTENDS_INDEX = 0;
 const ORGANIZES_INDEX = 1;
 
 export function getParticipationData(source) {
 	const { checkInsByEventId, events } = source;
-	const latestEvents = events.slice(0, PERIOD);
+	const oneYearAgo = subYears(new Date(), 1);
+	const latestEvents = events
+		.filter((event) => isAfter(event.dateObj, oneYearAgo));
 	const latestCheckIns = latestEvents
 		.map((event) => checkInsByEventId.get(event.id))
 		.flat();
@@ -45,10 +47,11 @@ export function getParticipationData(source) {
 		organizesMax,
 		attendsIQR,
 		organizesIQR
-	}
+	};
 	return {
 		...source,
-		participation
+		participation,
+		participationByParticipant
 	};
 }
 

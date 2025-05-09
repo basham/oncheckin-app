@@ -141,6 +141,9 @@
 			</a>
 		</div>
 	</div>
+	<div class="u-m-top-4">
+		<a href="participation">Participation</a>
+	</div>
 	<h2>Filter</h2>
 	<ul class="list-plain list-plain--inline u-gap-2px u-m-top-2">
 		{#each filters as filter}

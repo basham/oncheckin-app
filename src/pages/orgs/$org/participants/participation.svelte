@@ -1,0 +1,39 @@
+<script>
+	import { h1, participants } from '@src/data.js';
+	import Layout from '@src/pages/orgs/$org/layout.svelte';
+	import { pluralize, sortAsc } from '@src/util.js'
+
+	const ATTENDS_MIN = 4;
+
+	const results = participants
+		.filter((p) => p.attendsCount >= ATTENDS_MIN)
+		.map((p) => {
+			const organizesCount = p.organizesCount === 0 ? 0.25 : p.organizesCount;
+			const sortValue = organizesCount / p.attendsCount;
+			return { ...p, sortValue };
+		})
+		.sort(sortAsc('sortValue'));
+</script>
+
+<Layout>
+	<div>
+		<h1>{h1}</h1>
+	</div>
+	<h2 class="u-text-normal u-ts-1">{results.length} {pluralize(results.length, 'hasher')} ran at least {ATTENDS_MIN} times in the last year</h2>
+	<h3 class="h2">
+		Hares per run
+	</h3>
+	<ul class="list-plain u-gap-2px u-m-top-2">
+		{#each results as p}
+			<li class="row">
+				<a class="row__content" href={p.url}>
+					<span class="row__primary">{p.displayName}</span>
+					<span class="row__secondary">{p.fullName}</span>
+					<span class="row__tertiary u-right u-text-num">
+						{p.organizesCount} / {p.attendsCount}
+					</span>
+				</a>
+			</li>
+		{/each}
+	</ul>
+</Layout>
