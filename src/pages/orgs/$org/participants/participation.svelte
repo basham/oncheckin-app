@@ -21,7 +21,7 @@
 	</div>
 	<h2 class="u-text-normal u-ts-1">{results.length} {pluralize(results.length, 'hasher')} ran at least {ATTENDS_MIN} times in the last year</h2>
 	<h3 class="h2">
-		Hares per run
+		Hares / Runs
 	</h3>
 	<ul class="list-plain u-gap-2px u-m-top-2">
 		{#each results as p}
