@@ -36,8 +36,8 @@ export default defineConfig({
 				description: 'Membership app for Hash House Harriers.',
 				lang: 'en-US',
 				display: 'standalone',
-				background_color: '#27180a',
-				theme_color: '#190f05',
+				background_color: '#1a1510', // base-20
+				theme_color: '#52453a', // base-40
 				orientation: 'portrait',
 				icons: [
 					{
