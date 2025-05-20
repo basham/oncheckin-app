@@ -8,8 +8,7 @@
 	const results = participants
 		.filter((p) => p.attendsCount >= ATTENDS_MIN)
 		.map((p) => {
-			const organizesCount = p.organizesCount === 0 ? 0.25 : p.organizesCount;
-			const sortValue = organizesCount / p.attendsCount;
+			const sortValue = (p.organizesCount + 1) / (p.attendsCount + 1);
 			return { ...p, sortValue };
 		})
 		.sort((a, b) => {
