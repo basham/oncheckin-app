@@ -1,7 +1,7 @@
 <script>
 	import { h1, participants } from '@src/data.js';
 	import Layout from '@src/pages/orgs/$org/layout.svelte';
-	import { pluralize, sortAsc } from '@src/util.js'
+	import { pluralize, sortAsc, sortDesc } from '@src/util.js'
 
 	const ATTENDS_MIN = 4;
 
@@ -12,7 +12,11 @@
 			const sortValue = organizesCount / p.attendsCount;
 			return { ...p, sortValue };
 		})
-		.sort(sortAsc('sortValue'));
+		.sort((a, b) => {
+			const sortValue = sortAsc('sortValue')(a, b);
+			const attendsCount = sortDesc('attendsCount')(a, b);
+			return sortValue === 0 ? attendsCount : sortValue;
+		});
 </script>
 
 <Layout>
